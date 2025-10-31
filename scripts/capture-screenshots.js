@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
 
 const { spawn } = require("node:child_process");
 const { mkdirSync, appendFileSync } = require("node:fs");
