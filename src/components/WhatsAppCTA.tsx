@@ -17,20 +17,20 @@ type WhatsAppCTAProps = WhatsAppLinkOptions & {
 };
 
 const baseStyles =
-  "inline-flex items-center justify-center rounded-full font-semibold shadow-lg transition-all duration-150 hover:translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+  "inline-flex w-full items-center justify-center rounded-xl font-semibold shadow-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 md:w-auto";
 
 const sizeStyles: Record<NonNullable<WhatsAppCTAProps["size"]>, string> = {
-  sm: "px-4 py-2 text-xs",
-  md: "px-5 py-3 text-sm",
-  lg: "px-7 py-4 text-base md:text-lg",
+  sm: "px-4 py-2.5 text-sm md:text-base",
+  md: "px-5 py-3 text-sm md:text-base",
+  lg: "px-6 py-3.5 text-base md:text-lg",
 };
 
 const variantStyles: Record<NonNullable<WhatsAppCTAProps["variant"]>, string> =
   {
     primary:
-      "bg-deepgreen text-sand shadow-deepgreen/20 hover:bg-deepgreen/90 focus-visible:ring-deepgreen/70 focus-visible:ring-offset-sand",
+      "bg-brand-green text-brand-sand shadow-brand-green/20 hover:bg-brand-green/90 focus-visible:ring-brand-green/70 focus-visible:ring-offset-brand-sand",
     light:
-      "bg-white text-deepgreen shadow-deepgreen/10 hover:bg-white/90 focus-visible:ring-deepgreen/50 focus-visible:ring-offset-white",
+      "bg-white text-brand-green shadow-brand-green/10 hover:bg-white/90 focus-visible:ring-brand-green/50 focus-visible:ring-offset-white",
   };
 
 export const WhatsAppCTA = ({
@@ -57,7 +57,7 @@ export const WhatsAppCTA = ({
       target="_blank"
       rel="noopener"
       aria-label={label}
-      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
+      className={`${baseStyles} min-h-[44px] ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
       onClick={() =>
         track({
           event: "whatsapp_cta_click",

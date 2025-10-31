@@ -18,8 +18,8 @@ export const PackageCard = ({
   tagline,
 }: PackageCardProps) => {
   return (
-    <article className="flex h-full flex-col justify-between rounded-3xl bg-white/80 p-6 shadow-[var(--shadow-card)] ring-1 ring-border">
-      <div className="space-y-4">
+    <article className="flex h-full flex-col justify-between rounded-2xl border border-border bg-white p-5 shadow-sm transition-shadow hover:shadow md:p-6 md:transition">
+      <div className="space-y-4 text-sm md:text-base">
         <div className="space-y-2">
           {locationTag ? (
             <span className="inline-flex items-center rounded-full bg-sand px-3 py-1 text-xs font-semibold uppercase tracking-widest text-deepgreen">
@@ -29,23 +29,25 @@ export const PackageCard = ({
           <h3 className="text-xl font-semibold text-slate md:text-2xl">
             {title}
           </h3>
-          <p className="text-sm font-medium text-foreground-muted md:text-base">
+          <p className="font-medium text-foreground-muted">
             {days} day itinerary
           </p>
           {tagline ? (
-            <p className="text-sm text-foreground-muted">{tagline}</p>
+            <p className="text-foreground-muted">{tagline}</p>
           ) : null}
         </div>
-        <ul className="space-y-2 text-sm text-foreground-muted">
+        <ul className="space-y-2 text-foreground-muted">
           {highlights.map((highlight) => (
             <li key={highlight} className="flex items-start gap-2">
-              <span className="mt-[0.4em] h-1.5 w-1.5 rounded-full bg-deepgreen" />
+              <span className="mt-[0.55em] h-1.5 w-1.5 rounded-full bg-deepgreen" />
               <span>{highlight}</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className="mt-6">{cta}</div>
+      <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        {cta}
+      </div>
     </article>
   );
 };

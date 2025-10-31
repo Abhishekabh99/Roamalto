@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
+import { MobileWhatsAppBar } from "@/components/MobileWhatsAppBar";
 import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+  fallback: ["system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -65,6 +71,9 @@ export default function RootLayout({
         </Script>
         <SiteHeader />
         <div className="flex-1">{children}</div>
+        <SiteFooter />
+        <FloatingWhatsAppButton />
+        <MobileWhatsAppBar />
       </body>
     </html>
   );

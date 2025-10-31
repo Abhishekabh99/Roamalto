@@ -110,36 +110,49 @@ const jsonLd = {
 export default function Home() {
   return (
     <main id="main-content" className="flex-1 bg-sand">
-      <div className="relative isolate overflow-hidden">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-24 pt-20 md:pb-28 md:pt-24">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-deepgreen">
-            Less planning, more roaming.
-          </p>
-          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-slate md:text-5xl">
-            I&apos;m the founder behind Roamalto — your personal Europe travel curator.
-          </h1>
-          <p className="max-w-2xl text-lg text-foreground-muted md:text-xl">
-            I personally stitch Italy, Poland, and Switzerland journeys for Indian
-            travellers — visas, bookings, and on-trip support handled. WhatsApp me
-            and we start building your route right away.
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <WhatsAppCTA
-              phone={CONTACT_PHONE}
-              text="Hi Roamalto, I'd like to plan a Europe trip."
-              utm={{ utm_content: "hero-primary" }}
-              label="Plan via WhatsApp"
-              size="lg"
+      <section className="relative isolate overflow-hidden">
+        <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col gap-10 px-4 pb-24 pt-20 md:min-h-[65vh] md:flex-row md:items-center md:gap-16 md:pb-28 md:pt-24">
+          <div className="flex max-w-prose flex-col gap-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-deepgreen">
+              Less planning, more roaming.
+            </p>
+            <h1 className="text-3xl font-semibold leading-tight text-slate md:text-5xl">
+              I&apos;m the founder behind Roamalto — your personal Europe travel curator.
+            </h1>
+            <p className="text-base text-foreground-muted md:text-lg">
+              I personally stitch Italy, Poland, and Switzerland journeys for Indian
+              travellers — visas, bookings, and on-trip support handled. WhatsApp me
+              and we start building your route right away.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <WhatsAppCTA
+                phone={CONTACT_PHONE}
+                text="Hi Roamalto, I'd like to plan a Europe trip."
+                utm={{ utm_content: "hero-primary" }}
+                label="Plan via WhatsApp"
+                size="lg"
+              />
+              <a
+                href="#why-us"
+                className="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-sand"
+              >
+                See why travellers pick us
+              </a>
+            </div>
+          </div>
+          <div className="flex w-full justify-center md:w-1/2">
+            <Image
+              src="/og.jpg"
+              alt="Handcrafted Europe itineraries with Roamalto"
+              width={1200}
+              height={630}
+              priority
+              className="h-auto w-full rounded-xl object-cover shadow-[var(--shadow-card)] ring-1 ring-border"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             />
-            <a
-              href="#why-us"
-              className="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-sand"
-            >
-              See why travellers pick us
-            </a>
           </div>
         </div>
-      </div>
+      </section>
 
       <section id="why-us" className="bg-white py-16 md:py-20">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
@@ -216,8 +229,8 @@ export default function Home() {
             title="Personally scouted photo spots"
             description="Every stop here is a location I've walked, shot, and approved before it makes your itinerary."
           />
-          <div className="grid gap-6 md:grid-cols-3">
-            {FOUNDER_SPOTS.map((spot) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {FOUNDER_SPOTS.map((spot, index) => (
               <article
                 key={spot.title}
                 className="flex flex-col justify-between rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border"
@@ -228,14 +241,15 @@ export default function Home() {
                     alt={spot.imageAlt}
                     width={640}
                     height={480}
-                    className="h-auto w-full rounded-2xl object-cover ring-1 ring-border"
-                    loading="lazy"
-                    sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+                    className="rounded-xl object-cover ring-1 ring-border"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    sizes="(min-width: 1280px) 24vw, (min-width: 1024px) 28vw, (min-width: 768px) 45vw, 92vw"
                   />
                   <h3 className="mt-4 text-lg font-semibold text-slate">
                     {spot.title}
                   </h3>
-                  <p className="mt-3 text-sm text-foreground-muted">
+                  <p className="mt-3 text-sm text-foreground-muted overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] md:text-base md:overflow-visible md:[display:block] md:[-webkit-line-clamp:unset]">
                     {spot.description}
                   </p>
                 </div>
@@ -247,29 +261,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="bg-deepgreen py-16">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 text-center text-sand">
-          <h2 className="text-3xl font-semibold md:text-4xl">
-            Ready to design your Europe story?
-          </h2>
-          <p className="text-base text-sand/90">
-            Get your personalised itinerary, visa checklist, and budget plan over
-            a quick WhatsApp chat.
-          </p>
-          <WhatsAppCTA
-            phone={CONTACT_PHONE}
-            text="Hey Roamalto, let's start planning!"
-            utm={{ utm_content: "footer-cta" }}
-            label="Start a WhatsApp chat"
-            size="lg"
-            className="bg-white text-deepgreen hover:bg-white/90"
-          />
-          <p className="text-xs uppercase tracking-[0.3em] text-sand/85">
-            Italy · Poland · Switzerland
-          </p>
-        </div>
-      </footer>
 
       <script
         type="application/ld+json"

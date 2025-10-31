@@ -98,24 +98,38 @@ export default function ProcessPage() {
           description="Three collaborative phases that keep planning easy, transparent, and personalised."
           align="center"
         />
-        <div className="grid gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           {processSteps.map((step, index) => (
             <article
               key={step.title}
-              className="rounded-3xl bg-sand/60 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-8"
+              aria-label={`Phase ${index + 1}: ${step.title}`}
+              className="flex h-full flex-col items-center gap-4 rounded-3xl bg-sand/60 p-5 text-center shadow-[var(--shadow-card)] ring-1 ring-border md:items-start md:p-6 md:text-left"
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-deepgreen">
-                Phase {index + 1}
-              </p>
-              <h2 className="mt-3 text-xl font-semibold text-slate md:text-2xl">
-                {step.title}
-              </h2>
-              <p className="mt-4 text-sm text-foreground-muted md:text-base">
+              <header className="flex w-full flex-col items-center gap-3 md:flex-row md:items-start md:gap-4">
+                <span
+                  aria-hidden="true"
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-deepgreen text-xs font-semibold text-sand md:h-7 md:w-7"
+                >
+                  {index + 1}
+                </span>
+                <div className="flex flex-col">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-deepgreen">
+                    Phase {index + 1}
+                  </p>
+                  <h2 className="mt-2 text-xl font-semibold text-slate md:mt-3 md:text-2xl">
+                    {step.title}
+                  </h2>
+                </div>
+              </header>
+              <p className="text-sm text-foreground-muted md:text-base">
                 {step.description}
               </p>
-              <ul className="mt-6 grid gap-2 text-sm text-foreground-muted">
+              <ul className="mt-6 grid w-full gap-2 text-center text-sm text-foreground-muted md:text-left md:text-base">
                 {step.deliverables.map((deliverable) => (
-                  <li key={deliverable} className="flex items-start gap-3">
+                  <li
+                    key={deliverable}
+                    className="flex items-start justify-center gap-3 md:justify-start"
+                  >
                     <span className="mt-[0.45em] inline-block h-1.5 w-1.5 rounded-full bg-deepgreen" />
                     <span>{deliverable}</span>
                   </li>

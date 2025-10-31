@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { PackageCard } from "@/components/PackageCard";
 import { Modal } from "@/components/Modal";
 import { WhatsAppCTA } from "@/components/WhatsAppCTA";
@@ -13,15 +13,15 @@ type PackagesGridProps = {
 
 export const PackagesGrid = ({ packages }: PackagesGridProps) => {
   const [activePackageId, setActivePackageId] = useState<string | null>(null);
-
-  const activePackage = useMemo(
-    () => packages.find((pkg) => pkg.id === activePackageId) ?? null,
-    [activePackageId, packages],
-  );
+  const activePackage =
+    activePackageId !== null
+      ? packages.find((pkg) => pkg.id === activePackageId) ?? null
+      : null;
+  const modalId = "sample-itinerary-modal";
 
   return (
     <>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
         {packages.map((pkg) => (
           <PackageCard
             key={pkg.id}
@@ -31,10 +31,13 @@ export const PackagesGrid = ({ packages }: PackagesGridProps) => {
             tagline={pkg.tagline}
             highlights={pkg.highlights.slice(0, 3)}
             cta={
-              <div className="flex flex-col gap-3">
+              <>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center rounded-full border border-deepgreen px-5 py-3 text-sm font-semibold text-deepgreen transition-colors hover:bg-deepgreen/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="inline-flex w-full items-center justify-center rounded-full border border-deepgreen px-5 py-3 text-sm font-semibold text-deepgreen transition-colors hover:bg-deepgreen/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-white md:w-auto md:text-base"
+                  aria-haspopup="dialog"
+                  aria-expanded={activePackageId === pkg.id}
+                  aria-controls={modalId}
                   onClick={() => setActivePackageId(pkg.id)}
                 >
                   View sample itinerary
@@ -47,8 +50,9 @@ export const PackagesGrid = ({ packages }: PackagesGridProps) => {
                   }}
                   label="Talk to a planner"
                   size="md"
+                  className="w-full md:w-auto"
                 />
-              </div>
+              </>
             }
           />
         ))}
@@ -57,22 +61,26 @@ export const PackagesGrid = ({ packages }: PackagesGridProps) => {
         open={Boolean(activePackage)}
         onClose={() => setActivePackageId(null)}
         title={activePackage ? `${activePackage.title} — Sample Itinerary` : ""}
+        id={modalId}
       >
         {activePackage?.itinerary.length ? (
           activePackage.itinerary.map((day) => (
-            <div key={day.label} className="rounded-2xl bg-sand/60 p-4">
+            <div
+              key={day.label}
+              className="space-y-2 rounded-2xl bg-sand/60 p-4 md:p-5"
+            >
               <p className="text-xs font-semibold uppercase tracking-widest text-deepgreen">
                 {day.label}
               </p>
-              <p className="mt-2 text-sm text-slate">{day.detail}</p>
+              <p className="text-sm text-slate md:text-base">{day.detail}</p>
             </div>
           ))
         ) : (
-          <p className="text-sm text-slate">
+          <p className="text-sm text-slate md:text-base">
             The full day-by-day plan unlocks after our discovery chat.
           </p>
         )}
-        <p className="text-sm text-foreground-muted">
+        <p className="text-sm text-foreground-muted md:text-base">
           Full itineraries are personalised after our WhatsApp discovery chat.
         </p>
       </Modal>
