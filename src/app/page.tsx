@@ -109,111 +109,112 @@ const jsonLd = {
 
 export default function Home() {
   return (
-    <main id="main-content" className="flex-1 bg-sand">
-      <section className="relative isolate overflow-hidden">
-        <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col gap-10 px-4 pb-24 pt-20 md:min-h-[65vh] md:flex-row md:items-center md:gap-16 md:pb-28 md:pt-24">
-          <div className="flex max-w-prose flex-col gap-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-deepgreen">
-              Less planning, more roaming.
-            </p>
-            <h1 className="text-3xl font-semibold leading-tight text-slate md:text-5xl">
-              I&apos;m the founder behind Roamalto — your personal Europe travel curator.
-            </h1>
-            <p className="text-base text-foreground-muted md:text-lg">
-              I personally stitch Italy, Poland, and Switzerland journeys for Indian
-              travellers — visas, bookings, and on-trip support handled. WhatsApp me
-              and we start building your route right away.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <WhatsAppCTA
-                phone={CONTACT_PHONE}
-                text="Hi Roamalto, I'd like to plan a Europe trip."
-                utm={{ utm_content: "hero-primary" }}
-                label="Plan via WhatsApp"
-                size="lg"
-              />
-              <a
-                href="#why-us"
-                className="inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold text-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-sand"
-              >
-                See why travellers pick us
-              </a>
+    <main
+      id="main-content"
+      className="container mx-auto max-w-screen-xl flex-1 px-4"
+    >
+      <section className="py-10 md:py-14 lg:py-20">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-white/85 p-8 shadow-[var(--shadow-card)] ring-1 ring-border md:p-12">
+          <div className="flex min-h-[60vh] flex-col gap-10 md:min-h-[65vh] md:flex-row md:items-center md:justify-between md:gap-16">
+            <div className="flex flex-1 flex-col gap-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-green">
+                Less planning, more roaming.
+              </p>
+              <h1 className="heading-1">
+                I&apos;m the founder behind Roamalto — your personal Europe travel curator.
+              </h1>
+              <p className="body-text max-w-prose text-foreground-muted">
+                I personally stitch Italy, Poland, and Switzerland journeys for Indian
+                travellers — visas, bookings, and on-trip support handled. WhatsApp me
+                and we start building your route right away.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <WhatsAppCTA
+                  phone={CONTACT_PHONE}
+                  text="Hi Roamalto, I'd like to plan a Europe trip."
+                  utm={{ utm_content: "hero-primary" }}
+                  label="Plan via WhatsApp"
+                  size="lg"
+                />
+                <a
+                  href="#why-us"
+                  className="inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold text-brand-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                >
+                  See why travellers pick us
+                </a>
+              </div>
             </div>
-          </div>
-          <div className="flex w-full justify-center md:w-1/2">
-            <Image
-              src="/og.jpg"
-              alt="Handcrafted Europe itineraries with Roamalto"
-              width={1200}
-              height={630}
-              priority
-              className="h-auto w-full rounded-xl object-cover shadow-[var(--shadow-card)] ring-1 ring-border"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-            />
+            <div className="flex flex-1 justify-center md:justify-end">
+              <Image
+                src="/og.jpg"
+                alt="Handcrafted Europe itineraries with Roamalto"
+                width={1200}
+                height={630}
+                priority
+                className="h-full w-full max-w-lg rounded-2xl object-cover shadow-[var(--shadow-card)] ring-1 ring-border"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="why-us" className="bg-white py-16 md:py-20">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
+      <section id="why-us" className="py-10 md:py-14 lg:py-20">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
           <SectionHeading
             eyebrow="Why Roamalto"
             title="Trusted by families, honeymooners, and solo explorers"
             description="Founder-led planning with concierge-level support at every step."
           />
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             {WHY_US_POINTS.map((point) => (
-              <div
+              <article
                 key={point.title}
-                className="rounded-3xl bg-sand/60 p-6 shadow-[var(--shadow-card)] ring-1 ring-border"
+                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
               >
-                <h3 className="text-lg font-semibold text-slate">
-                  {point.title}
-                </h3>
-                <p className="mt-3 text-sm text-foreground-muted">
+                <h3 className="heading-3">{point.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
                   {point.description}
                 </p>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="packages" className="bg-sand py-16 md:py-20">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
+      <section id="packages" className="py-10 md:py-14 lg:py-20">
+        <div className="space-y-8 md:space-y-10">
           <SectionHeading
             eyebrow="Featured Packages"
             title="Three curated routes to kickstart your planning"
             description="Ask for price ranges, personalise every detail, and get a transparent inclusions/exclusions sheet before you confirm."
           />
           <FeaturedPackagesSection packages={featuredPackages} />
-          <p className="text-sm text-foreground-muted">
+          <p className="text-sm text-foreground-muted md:text-base">
             You always know what&apos;s covered and what&apos;s optional add-on — I flag each
             inclusion and exclusion upfront so there are zero surprises later.
           </p>
         </div>
       </section>
 
-      <section id="process" className="bg-white py-16 md:py-20">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
+      <section id="process" className="py-10 md:py-14 lg:py-20">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
           <SectionHeading
             eyebrow="How We Work"
             title="Visas, bookings, and on-trip support handled"
             description="A four-step flow that keeps planning easy and transparent."
           />
-          <ol className="grid gap-6 md:grid-cols-2">
+          <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             {howWeWork.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-3xl bg-sand/60 p-6 shadow-[var(--shadow-card)] ring-1 ring-border"
+                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-deepgreen">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">
                   Step {index + 1}
                 </p>
-                <h3 className="mt-2 text-lg font-semibold text-slate">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm text-foreground-muted">
+                <h3 className="mt-2 heading-3">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
                   {step.description}
                 </p>
               </li>
@@ -222,18 +223,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="founder" className="bg-sand py-16 md:py-20">
-        <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
+      <section id="founder" className="py-10 md:py-14 lg:py-20">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
           <SectionHeading
             eyebrow="Founder’s Photo-Spots"
             title="Personally scouted photo spots"
             description="Every stop here is a location I've walked, shot, and approved before it makes your itinerary."
           />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {FOUNDER_SPOTS.map((spot, index) => (
               <article
                 key={spot.title}
-                className="flex flex-col justify-between rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border"
+                className="flex flex-col justify-between rounded-2xl bg-white/95 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
               >
                 <div>
                   <Image
@@ -241,19 +242,17 @@ export default function Home() {
                     alt={spot.imageAlt}
                     width={640}
                     height={480}
-                    className="rounded-xl object-cover ring-1 ring-border"
+                    className="h-auto w-full rounded-xl object-cover ring-1 ring-border"
                     priority={index === 0}
                     loading={index === 0 ? "eager" : "lazy"}
                     sizes="(min-width: 1280px) 24vw, (min-width: 1024px) 28vw, (min-width: 768px) 45vw, 92vw"
                   />
-                  <h3 className="mt-4 text-lg font-semibold text-slate">
-                    {spot.title}
-                  </h3>
-                  <p className="mt-3 text-sm text-foreground-muted overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] md:text-base md:overflow-visible md:[display:block] md:[-webkit-line-clamp:unset]">
+                  <h3 className="mt-4 heading-3">{spot.title}</h3>
+                  <p className="mt-3 text-sm text-foreground-muted leading-relaxed overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] md:text-base md:overflow-visible md:[display:block] md:[-webkit-line-clamp:unset]">
                     {spot.description}
                   </p>
                 </div>
-                <p className="mt-4 text-xs uppercase tracking-[0.2em] text-deepgreen">
+                <p className="mt-4 text-xs uppercase tracking-[0.2em] text-brand-green">
                   Photo recce ready
                 </p>
               </article>

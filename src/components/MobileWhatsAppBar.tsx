@@ -37,7 +37,12 @@ export const MobileWhatsAppBar = ({
 
     const storedValue = window.sessionStorage.getItem(STORAGE_KEY);
     if (storedValue === "true") {
-      setDismissed(true);
+      const updateDismissed = () => setDismissed(true);
+      if (typeof queueMicrotask === "function") {
+        queueMicrotask(updateDismissed);
+      } else {
+        window.setTimeout(updateDismissed, 0);
+      }
     }
   }, []);
 

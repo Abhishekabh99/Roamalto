@@ -90,91 +90,92 @@ export const metadata: Metadata = {
 
 export default function ProcessPage() {
   return (
-    <main id="main-content" className="flex-1 bg-white pb-16 pt-10 md:pb-20 md:pt-16">
-      <div className="mx-auto flex max-w-5xl flex-col gap-12 px-4">
-        <SectionHeading
-          eyebrow="Process"
-          title="From WhatsApp brief to wheels-up support"
-          description="Three collaborative phases that keep planning easy, transparent, and personalised."
-          align="center"
-        />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          {processSteps.map((step, index) => (
-            <article
-              key={step.title}
-              aria-label={`Phase ${index + 1}: ${step.title}`}
-              className="flex h-full flex-col items-center gap-4 rounded-3xl bg-sand/60 p-5 text-center shadow-[var(--shadow-card)] ring-1 ring-border md:items-start md:p-6 md:text-left"
-            >
-              <header className="flex w-full flex-col items-center gap-3 md:flex-row md:items-start md:gap-4">
-                <span
-                  aria-hidden="true"
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-deepgreen text-xs font-semibold text-sand md:h-7 md:w-7"
-                >
-                  {index + 1}
-                </span>
-                <div className="flex flex-col">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-deepgreen">
-                    Phase {index + 1}
-                  </p>
-                  <h2 className="mt-2 text-xl font-semibold text-slate md:mt-3 md:text-2xl">
-                    {step.title}
-                  </h2>
-                </div>
-              </header>
-              <p className="text-sm text-foreground-muted md:text-base">
-                {step.description}
-              </p>
-              <ul className="mt-6 grid w-full gap-2 text-center text-sm text-foreground-muted md:text-left md:text-base">
-                {step.deliverables.map((deliverable) => (
-                  <li
-                    key={deliverable}
-                    className="flex items-start justify-center gap-3 md:justify-start"
+    <main
+      id="main-content"
+      className="container mx-auto max-w-screen-xl flex-1 px-4"
+    >
+      <section className="py-10 md:py-14 lg:py-20">
+        <div className="mx-auto flex max-w-5xl flex-col gap-12">
+          <SectionHeading
+            eyebrow="Process"
+            title="From WhatsApp brief to wheels-up support"
+            description="Three collaborative phases that keep planning easy, transparent, and personalised."
+            align="center"
+          />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            {processSteps.map((step, index) => (
+              <article
+                key={step.title}
+                aria-label={`Phase ${index + 1}: ${step.title}`}
+                className="flex h-full flex-col items-center gap-4 rounded-3xl bg-brand-sand/60 p-5 text-center shadow-[var(--shadow-card)] ring-1 ring-border transition-shadow hover:shadow-md md:items-start md:p-6 md:text-left"
+              >
+                <header className="flex w-full flex-col items-center gap-3 md:flex-row md:items-start md:gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-green text-xs font-semibold text-brand-sand md:h-7 md:w-7"
                   >
-                    <span className="mt-[0.45em] inline-block h-1.5 w-1.5 rounded-full bg-deepgreen" />
-                    <span>{deliverable}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <section className="rounded-3xl bg-deepgreen px-6 py-10 text-sand md:px-12">
-          <h2 className="text-2xl font-semibold md:text-3xl">
-            Ready to get your customised plan?
-          </h2>
-          <p className="mt-4 max-w-2xl text-sm text-sand/90 md:text-base">
-            Share your trip basics on WhatsApp. We revert with timelines, visa insights,
-            and a curated first draft within two days.
-          </p>
-          <div className="mt-6">
-            <WhatsAppCTA
-              phone={CONTACT_PHONE}
-              text="Hi Roamalto, walk me through your planning process."
-              utm={{ utm_content: "process-page" }}
-              label="Start the chat"
-              size="lg"
-              variant="light"
-            />
-          </div>
-        </section>
-
-        <section className="space-y-6 rounded-3xl bg-white px-6 py-10 ring-1 ring-border md:px-12">
-          <h2 className="text-2xl font-semibold text-slate md:text-3xl">
-            FAQs
-          </h2>
-          <div className="space-y-6 text-sm text-foreground-muted md:text-base">
-            {faqs.map((faq) => (
-              <div key={faq.question} className="space-y-2">
-                <h3 className="text-lg font-semibold text-slate">
-                  {faq.question}
-                </h3>
-                <p>{faq.answer}</p>
-              </div>
+                    {index + 1}
+                  </span>
+                  <div className="flex flex-col">
+                    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-green">
+                      Phase {index + 1}
+                    </p>
+                    <h2 className="mt-2 heading-3 md:mt-3">{step.title}</h2>
+                  </div>
+                </header>
+                <p className="text-sm leading-relaxed text-foreground-muted md:text-base">
+                  {step.description}
+                </p>
+                <ul className="mt-6 grid w-full gap-2 text-center text-sm text-foreground-muted md:text-left md:text-base">
+                  {step.deliverables.map((deliverable) => (
+                    <li
+                      key={deliverable}
+                      className="flex items-start justify-center gap-3 md:justify-start"
+                    >
+                      <span className="mt-[0.45em] inline-block h-1.5 w-1.5 rounded-full bg-brand-green" />
+                      <span>{deliverable}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
             ))}
           </div>
-        </section>
-      </div>
+
+          <div className="rounded-3xl bg-brand-green px-6 py-10 text-brand-sand shadow-[var(--shadow-card)] md:px-12">
+            <h2 className="heading-2 text-brand-sand">
+              Ready to get your customised plan?
+            </h2>
+            <p className="mt-4 max-w-2xl text-sm text-brand-sand/90 md:text-base">
+              Share your trip basics on WhatsApp. We revert with timelines, visa insights,
+              and a curated first draft within two days.
+            </p>
+            <div className="mt-6">
+              <WhatsAppCTA
+                phone={CONTACT_PHONE}
+                text="Hi Roamalto, walk me through your planning process."
+                utm={{ utm_content: "process-page" }}
+                label="Start the chat"
+                size="lg"
+                variant="light"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-6 rounded-3xl bg-white px-6 py-10 shadow-[var(--shadow-card)] ring-1 ring-border md:px-12">
+            <h2 className="heading-2 text-brand-slate">
+              FAQs
+            </h2>
+            <div className="space-y-6 text-sm text-foreground-muted md:text-base">
+              {faqs.map((faq) => (
+                <div key={faq.question} className="space-y-2">
+                  <h3 className="heading-3">{faq.question}</h3>
+                  <p>{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

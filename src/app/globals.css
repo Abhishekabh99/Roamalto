@@ -26,7 +26,7 @@
   }
 
   body {
-    @apply bg-brand-sand font-sans antialiased text-base text-brand-slate leading-relaxed md:text-lg lg:text-xl;
+    @apply bg-brand-sand font-sans antialiased text-base text-brand-slate leading-relaxed overflow-x-hidden md:text-lg lg:text-xl;
   }
 
   a {
@@ -52,5 +52,23 @@
 
   h3 {
     @apply text-xl font-semibold text-brand-slate md:text-2xl;
+  }
+}
+
+@layer components {
+  .heading-1 {
+    @apply text-3xl font-semibold tracking-tight text-brand-slate md:text-4xl lg:text-5xl;
+  }
+
+  .heading-2 {
+    @apply text-2xl font-semibold text-brand-slate md:text-3xl lg:text-4xl;
+  }
+
+  .heading-3 {
+    @apply text-xl font-semibold text-brand-slate md:text-2xl;
+  }
+
+  .body-text {
+    @apply text-base text-brand-slate md:text-lg lg:text-xl;
   }
 }

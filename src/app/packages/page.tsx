@@ -39,15 +39,21 @@ export const metadata: Metadata = {
 
 export default function PackagesPage() {
   return (
-    <main id="main-content" className="flex-1 bg-sand pb-16 pt-10 md:pb-20 md:pt-16">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4">
-        <SectionHeading
-          eyebrow="Packages"
-          title="All Roamalto routes at a glance"
-          description="Use the sample itineraries for inspiration — every trip is tailored after our WhatsApp discovery call."
-        />
-        <PackagesGrid packages={featuredPackages} />
-      </div>
+    <main
+      id="main-content"
+      className="container mx-auto max-w-screen-xl flex-1 px-4"
+    >
+      <section className="py-10 md:py-14 lg:py-20">
+        <div className="space-y-10">
+          <SectionHeading
+            eyebrow="Packages"
+            title="All Roamalto routes at a glance"
+            description="Use the sample itineraries for inspiration — every trip is tailored after our WhatsApp discovery call."
+            align="center"
+          />
+          <PackagesGrid packages={featuredPackages} />
+        </div>
+      </section>
     </main>
   );
 }

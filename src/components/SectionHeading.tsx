@@ -13,19 +13,23 @@ export const SectionHeading = ({
 }: SectionHeadingProps) => {
   const alignment =
     align === "center"
-      ? "text-center md:mx-auto md:max-w-3xl"
+      ? "mx-auto text-center"
       : "text-left";
+  const descriptionAlignment =
+    align === "center" ? "mx-auto" : "ml-0";
 
   return (
-    <header className={`space-y-4 ${alignment} mb-6 md:mb-8`}>
+    <header className={`mb-6 flex w-full flex-col gap-4 md:mb-8 ${alignment}`}>
       {eyebrow ? (
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">
           {eyebrow}
         </p>
       ) : null}
-      <h2>{title}</h2>
+      <h2 className="heading-2">{title}</h2>
       {description ? (
-        <p className="text-balance text-base text-foreground-muted md:text-lg lg:text-xl md:mx-auto md:max-w-3xl">
+        <p
+          className={`body-text text-foreground-muted text-balance max-w-prose ${descriptionAlignment}`}
+        >
           {description}
         </p>
       ) : null}
