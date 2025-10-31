@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
   useRef,
+  type ReactNode,
 } from "react";
+import { Portal } from "@/components/Portal";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 
 type MobileMenuItem = {
@@ -26,7 +27,7 @@ type MobileMenuProps = {
   footer?: ReactNode;
 };
 
-const FOCUSABLE =
+const FOCUSABLE_SELECTORS =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const MobileMenu = ({
@@ -37,8 +38,8 @@ export const MobileMenu = ({
   triggerRef,
   footer,
 }: MobileMenuProps) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const initialFocusRef = useRef<HTMLElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
 
   useLockBodyScroll(open);
@@ -48,16 +49,16 @@ export const MobileMenu = ({
       return;
     }
 
-    const node = containerRef.current;
-    if (!node) {
+    const panel = panelRef.current;
+    if (!panel) {
       return;
     }
 
-    const focusables = node.querySelectorAll<HTMLElement>(FOCUSABLE);
-    const firstFocusable = focusables[0] ?? null;
-    initialFocusRef.current = triggerRef.current;
+    restoreFocusRef.current = triggerRef.current ?? null;
 
-    firstFocusable?.focus();
+    const focusableNodes = panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS);
+    const firstFocusable = focusableNodes[0] ?? panel;
+    firstFocusable.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -66,16 +67,16 @@ export const MobileMenu = ({
         return;
       }
 
-      if (event.key !== "Tab" || focusables.length === 0) {
+      if (event.key !== "Tab" || focusableNodes.length === 0) {
         return;
       }
 
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
+      const first = focusableNodes[0];
+      const last = focusableNodes[focusableNodes.length - 1];
       const active = document.activeElement as HTMLElement | null;
 
       if (event.shiftKey) {
-        if (active === first) {
+        if (active === first || active === panel) {
           event.preventDefault();
           last.focus();
         }
@@ -86,27 +87,20 @@ export const MobileMenu = ({
     };
 
     document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      const toRestore = restoreFocusRef.current;
+      if (toRestore) {
+        const focusLater = () => toRestore.focus();
+        if (typeof queueMicrotask === "function") {
+          queueMicrotask(focusLater);
+        } else if (typeof window !== "undefined") {
+          window.setTimeout(focusLater, 0);
+        }
+      }
     };
   }, [open, onClose, triggerRef]);
-
-  useEffect(() => {
-    if (open) {
-      onClose();
-    }
-  }, [pathname, open, onClose]);
-
-  useEffect(() => {
-    if (open) {
-      return;
-    }
-
-    const previous = initialFocusRef.current;
-    if (previous) {
-      previous.focus();
-    }
-  }, [open]);
 
   const handleLinkClick = useCallback(() => {
     onClose();
@@ -124,7 +118,7 @@ export const MobileMenu = ({
             href={item.href}
             aria-current={isActive ? "page" : undefined}
             onClick={handleLinkClick}
-            className={`block w-full rounded-lg px-4 py-3 text-left text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green ${
+            className={`block w-full rounded-lg px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green ${
               isActive
                 ? "bg-slate-50 text-brand-green"
                 : "text-brand-slate hover:bg-slate-50"
@@ -142,27 +136,32 @@ export const MobileMenu = ({
   }
 
   return (
-    <div
-      id={id}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Mobile navigation"
-      className="fixed inset-x-0 top-[env(safe-area-inset-top)] bottom-[env(safe-area-inset-bottom)] z-50 md:hidden"
-    >
-      <div
-        className="absolute inset-0 bg-black/30"
-        onClick={onClose}
-        role="presentation"
-      />
-      <div
-        ref={containerRef}
-        className="relative mx-3 mt-3 flex max-h-[calc(100%-2rem)] flex-col gap-4 overflow-y-auto rounded-2xl bg-white p-4 shadow-xl"
-      >
-        <nav aria-label="Mobile">
-          <ul className="flex flex-col gap-1">{renderedItems}</ul>
-        </nav>
-        {footer ? <div className="border-t border-slate-200 pt-4">{footer}</div> : null}
-      </div>
-    </div>
+    <Portal>
+      <>
+        <div
+          className="fixed inset-0 z-[60] bg-black/30 md:hidden"
+          onClick={onClose}
+          role="presentation"
+        />
+        <div
+          ref={panelRef}
+          id={id}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          tabIndex={-1}
+          className="fixed inset-x-0 top-[env(safe-area-inset-top)] bottom-[env(safe-area-inset-bottom)] z-[61] overflow-y-auto bg-white md:hidden"
+        >
+          <div className="px-4 py-4">
+            <nav aria-label="Mobile">
+              <ul className="flex flex-col gap-1">{renderedItems}</ul>
+            </nav>
+            {footer ? (
+              <div className="mt-6 border-t border-slate-200 pt-4">{footer}</div>
+            ) : null}
+          </div>
+        </div>
+      </>
+    </Portal>
   );
 };
