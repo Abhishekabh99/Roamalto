@@ -38,3 +38,10 @@ Clicking any WhatsApp button pushes an event to `window.dataLayer`. If you conne
 ## Deployment
 
 Deploy on Vercel or any Node.js host. Remember to set the production domain in `src/app/layout.tsx` (`metadataBase`) and `sitemap.ts` / `robots.ts` before going live.
+
+### Vercel Deployment
+
+1. Install dependencies with `npm ci`.
+2. Build the project using `npm run build`.
+3. Authenticate with `npx vercel login` if you have not linked your Vercel account in this environment.
+4. Deploy to production via `npm run deploy:vercel`.
