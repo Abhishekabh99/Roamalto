@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="rome-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="60%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#fde68a" />
+    </linearGradient>
+    <linearGradient id="rome-ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#rome-sky)" />
+  <g opacity="0.8">
+    <path
+      d="M0 360 Q120 300 240 330 T480 320 T720 350 T800 340 V600 H0 Z"
+      fill="url(#rome-ground)"
+    />
+    <path
+      d="M520 420 Q560 360 600 350 T660 360 L700 340 L740 360 L780 340 V600 H520 Z"
+      fill="#92400e"
+      opacity="0.45"
+    />
+    <path
+      d="M300 380 Q360 320 420 300 T520 320 L540 360 L580 340 L620 360 L660 340 V600 H300 Z"
+      fill="#fda4af"
+      opacity="0.2"
+    />
+  </g>
+  <g fill="#78350f">
+    <rect x="120" y="320" width="80" height="160" rx="12" />
+    <rect x="210" y="340" width="70" height="140" rx="10" opacity="0.8" />
+    <rect x="310" y="310" width="90" height="170" rx="14" />
+    <path
+      d="M470 260 Q500 220 530 260 L530 420 H470 Z"
+      fill="#fde68a"
+      opacity="0.9"
+    />
+    <rect x="470" y="420" width="60" height="6" fill="#facc15" />
+  </g>
+  <circle cx="540" cy="210" r="70" fill="#fcd34d" opacity="0.7" />
+  <path
+    d="M160 420 Q200 410 240 420 T320 430 T400 420 Q440 410 480 430"
+    fill="none"
+    stroke="#78350f"
+    stroke-width="6"
+    stroke-linecap="round"
+    opacity="0.6"
+  />
+  <path
+    d="M120 470 Q200 440 280 470 T440 480 T600 460"
+    fill="none"
+    stroke="#7f1d1d"
+    stroke-width="8"
+    stroke-linecap="round"
+    opacity="0.35"
+  />
+</svg>
