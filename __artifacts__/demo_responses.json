@@ -1,36 +1,452 @@
-{
-  "timestamp": "2025-11-03T13:24:57+05:30",
-  "note": "Demo flows could not be executed because the local Next.js dev server is not running; Docker-based Postgres is unavailable in this environment.",
-  "requests": [
-    {
-      "name": "event_page_view",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/event"
+[
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Alice Romano",
+      "email": "alice.romano@example.com",
+      "phone": "+39 123 456 7890",
+      "country": "Italy",
+      "travel_window": "April 10-20, 2026",
+      "notes": "Interested in small group tours with food focus.",
+      "source": "demo-form"
     },
-    {
-      "name": "event_cta_click",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/event"
-    },
-    {
-      "name": "lead_create",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/lead"
-    },
-    {
-      "name": "inquiry_create",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/inquiry"
-    },
-    {
-      "name": "booking_create",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/booking"
-    },
-    {
-      "name": "booking_status_update",
-      "status": "error",
-      "details": "Connection refused at http://localhost:3000/api/booking/:id/status"
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "a7943f6a-6469-4d26-ac85-f36cccb9d1f6",
+      "createdAt": "2025-11-03T11:28:32.525Z"
     }
-  ]
-}
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Marek Kowalski",
+      "email": "marek.k@example.com",
+      "phone": "+48 500 600 700",
+      "country": "Poland",
+      "travel_window": "Winter 2026",
+      "notes": "Family of four, wants Christmas markets.",
+      "source": "demo-form"
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "5bc399bf-2d9e-49a4-916a-75f7d4f1f7e3",
+      "createdAt": "2025-11-03T11:28:32.547Z"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Sophie Martin",
+      "email": "sophie.martin@example.com",
+      "phone": "+33 1 23 45 67 89",
+      "country": "France",
+      "travel_window": "May 2026",
+      "notes": "Luxury accommodations only.",
+      "source": "demo-form"
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "1e8352e6-522c-4eaf-b440-ef8a8ec28b1b",
+      "createdAt": "2025-11-03T11:28:32.566Z"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Liam O'Connor",
+      "email": "liam.oconnor@example.com",
+      "phone": "+353 85 123 4567",
+      "country": "Ireland",
+      "travel_window": "September 2026",
+      "notes": "Honeymoon, open to split Italy/Switzerland.",
+      "source": "demo-form"
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "2aa35447-37e1-4304-9805-b3814f775cdc",
+      "createdAt": "2025-11-03T11:28:32.588Z"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Emily Chen",
+      "email": "emily.chen@example.com",
+      "phone": "+1 415 555 0199",
+      "country": "United States",
+      "travel_window": "June 2026",
+      "notes": "Multi-generational trip, needs accessible hotels.",
+      "source": "demo-form"
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "614341eb-657e-4d64-aa53-acb46307ee4e",
+      "createdAt": "2025-11-03T11:28:32.607Z"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/lead",
+    "request": {
+      "name": "Noah Fischer",
+      "email": "noah.fischer@example.com",
+      "phone": "+41 44 555 6677",
+      "country": "Switzerland",
+      "travel_window": "December 2026",
+      "notes": "Ski week with a guided day in Zermatt.",
+      "source": "whatsapp-demo"
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "a0b58329-6a4f-44b2-8481-b286e4b1d2e0",
+      "createdAt": "2025-11-03T11:28:32.625Z"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/booking",
+    "request": {
+      "lead_id": "a7943f6a-6469-4d26-ac85-f36cccb9d1f6",
+      "package_id": "a473a774-dd7c-4432-b606-f1c1888816cb",
+      "amount_estimate": 7400,
+      "meta": {
+        "source": "demo"
+      }
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "b24dca75-7fbe-4d86-9d6b-1ef6550ae677",
+      "status": "new"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/booking",
+    "request": {
+      "lead_id": "5bc399bf-2d9e-49a4-916a-75f7d4f1f7e3",
+      "package_id": "e8190333-5162-473c-ae0f-0a661593305e",
+      "amount_estimate": 5200,
+      "meta": {
+        "source": "demo"
+      }
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "536e40dd-7569-4cb1-90df-74e3a6299339",
+      "status": "new"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/booking",
+    "request": {
+      "lead_id": "1e8352e6-522c-4eaf-b440-ef8a8ec28b1b",
+      "package_id": "08fa481e-3fbd-41d1-aad5-92deb634d49f",
+      "amount_estimate": 11100,
+      "meta": {
+        "source": "demo"
+      }
+    },
+    "status": 201,
+    "response": {
+      "ok": true,
+      "id": "81101ee6-ce0e-4755-ba19-a533398c7ed4",
+      "status": "new"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/b24dca75-7fbe-4d86-9d6b-1ef6550ae677/status",
+    "request": {
+      "status": "consulting"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "consulting"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/536e40dd-7569-4cb1-90df-74e3a6299339/status",
+    "request": {
+      "status": "consulting"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "consulting"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/536e40dd-7569-4cb1-90df-74e3a6299339/status",
+    "request": {
+      "status": "docs"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "docs"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/81101ee6-ce0e-4755-ba19-a533398c7ed4/status",
+    "request": {
+      "status": "consulting"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "consulting"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/81101ee6-ce0e-4755-ba19-a533398c7ed4/status",
+    "request": {
+      "status": "docs"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "docs"
+    }
+  },
+  {
+    "method": "PATCH",
+    "endpoint": "/api/booking/81101ee6-ce0e-4755-ba19-a533398c7ed4/status",
+    "request": {
+      "status": "booked"
+    },
+    "status": 200,
+    "response": {
+      "ok": true,
+      "status": "booked"
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "utm": {
+          "source": "demo",
+          "campaign": "spring-2026"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "label": "Hero WhatsApp"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/packages",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "utm": {
+          "source": "demo",
+          "campaign": "spring-2026"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/packages",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "label": "Packages CTA"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "utm": {
+          "source": "newsletter",
+          "campaign": "november"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "label": "Hero CTA"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/packages",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "utm": {
+          "source": "newsletter",
+          "campaign": "november"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/packages",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "label": "Packages CTA"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "utm": {
+          "source": "ads",
+          "campaign": "retarget"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/packages",
+      "sessionId": "session-landing-1",
+      "meta": {
+        "label": "Footer CTA"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "page_view",
+      "path": "/packages",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "utm": {
+          "source": "ads",
+          "campaign": "retarget"
+        }
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  },
+  {
+    "method": "POST",
+    "endpoint": "/api/event",
+    "request": {
+      "type": "cta_click",
+      "path": "/",
+      "sessionId": "session-landing-2",
+      "meta": {
+        "label": "Sticky CTA"
+      }
+    },
+    "status": 200,
+    "response": {
+      "ok": true
+    }
+  }
+]
