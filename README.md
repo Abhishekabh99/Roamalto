@@ -64,6 +64,22 @@ Update the `CONTACT_PHONE` placeholder before launch so WhatsApp CTAs resolve co
 
 Clicking any WhatsApp button pushes an event to `window.dataLayer`. If you connect Google Tag Manager, listen for `whatsapp_cta_click` events to trigger tags.
 
+## Magic Link Sign-In Demo
+
+With the default `.env.local` the email provider falls back to console logging whenever SMTP credentials are missing. To demo the admin login flow locally:
+
+1. Start the dev server with font downloads disabled: `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD=1 npm run dev`.
+2. Visit `http://localhost:3000/api/auth/signin` and enter `ADMIN_SEED_EMAIL` (defaults to `admin@roamalto.demo`).
+3. The server prints a line similar to:
+
+   ```
+   [auth][magic-link] No SMTP configured. Share this link with admin@roamalto.demo: https://...
+   ```
+
+4. Open the printed magic link in a browser tab to complete sign-in, then load `/admin` to access the dashboard.
+
+When SMTP credentials are provided, the same flow delivers magic links via the configured provider (e.g. Mailtrap, Postmark, Resend).
+
 ## Quality Checks
 
 - `npm run lint` – ESLint + TypeScript rules
