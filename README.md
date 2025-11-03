@@ -33,6 +33,14 @@ npm run dev
 
 4. Trigger the email sign-in flow by visiting `/api/auth/signin`, entering the seeded admin email, and clicking the magic link delivered by your SMTP provider. This grants access to `/admin`.
 5. Mirror the same environment variables in the Vercel dashboard (Project Settings → Environment Variables) for each deployment environment.
+6. Need a local Postgres quickly? Use Docker helpers:
+
+   ```bash
+   npm run dev:db       # start or reuse roamalto-postgres container
+   npm run dev:db:stop  # stop & remove the container
+   ```
+
+   The scripts expose Postgres on `postgres://roamalto:pass@localhost:5432/roamalto`, which matches the default `DATABASE_URL` in `.env.local`.
 
 ## Tech Stack
 

@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test --loader ./test/ts-loader.mjs src/lib/__tests__/*.test.ts",
     "deploy:vercel": "vercel --prod --confirm",
-    "db:seed": "tsx db/seed.ts"
+    "db:seed": "tsx db/seed.ts",
+    "dev:db": "sh -c \"docker start roamalto-postgres 2>/dev/null || docker run -d --name roamalto-postgres -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=roamalto -e POSTGRES_DB=roamalto -p 5432:5432 postgres:15\"",
+    "dev:db:stop": "sh -c \"docker stop roamalto-postgres 2>/dev/null && docker rm roamalto-postgres 2>/dev/null || true\""
   },
   "dependencies": {
     "@fast-csv/format": "^5.0.0",
