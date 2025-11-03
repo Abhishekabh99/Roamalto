@@ -1,6 +1,6 @@
-import { kyselyAdapter } from "@/lib/auth/adapter";
 import { db } from "@/db/kysely";
 import type { UserRole } from "@/db/types";
+import { kyselyAdapter } from "@/lib/auth/adapter";
 import type { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
@@ -14,24 +14,41 @@ const requiredEnv = (key: string) => {
   return value;
 };
 
-const emailProvider = EmailProvider({
-  from: requiredEnv("EMAIL_FROM"),
+const emailFrom = process.env.EMAIL_FROM || "auth@roamalto.demo";
+const emailHost = process.env.EMAIL_SERVER_HOST;
+const emailPort = process.env.EMAIL_SERVER_PORT
+  ? Number.parseInt(process.env.EMAIL_SERVER_PORT, 10)
+  : 587;
+const emailUser = process.env.EMAIL_SERVER_USER;
+const emailPass = process.env.EMAIL_SERVER_PASSWORD;
+
+const isSmtpConfigured = Boolean(emailHost && emailUser && emailPass);
+
+const emailProviderConfig: Parameters<typeof EmailProvider>[0] = {
+  from: emailFrom,
   maxAge: 10 * 60,
-  server: {
-    host: requiredEnv("EMAIL_SERVER_HOST"),
-    port: Number(process.env.EMAIL_SERVER_PORT ?? 587),
-    auth: {
-      user: requiredEnv("EMAIL_SERVER_USER"),
-      pass: requiredEnv("EMAIL_SERVER_PASSWORD"),
-    },
-  },
-  async sendVerificationRequest({ identifier, url, provider }) {
+  async sendVerificationRequest({ identifier, url }) {
     const { host } = new URL(url);
-    const transport = nodemailer.createTransport(provider.server);
+
+    if (!isSmtpConfigured) {
+      console.info(
+        `[auth][magic-link] No SMTP configured. Share this link with ${identifier}: ${url}`,
+      );
+      return;
+    }
+
+    const transport = nodemailer.createTransport({
+      host: emailHost,
+      port: emailPort,
+      auth: {
+        user: emailUser,
+        pass: emailPass,
+      },
+    });
 
     await transport.sendMail({
       to: identifier,
-      from: provider.from,
+      from: emailFrom,
       subject: `Log in to ${host}`,
       text: `Sign in by clicking the link: ${url}\n\nThis link will expire in 10 minutes.`,
       html: `
@@ -42,7 +59,20 @@ const emailProvider = EmailProvider({
       `,
     });
   },
-});
+};
+
+if (isSmtpConfigured) {
+  emailProviderConfig.server = {
+    host: emailHost!,
+    port: emailPort,
+    auth: {
+      user: emailUser!,
+      pass: emailPass!,
+    },
+  };
+}
+
+const emailProvider = EmailProvider(emailProviderConfig);
 
 const googleProvider =
   process.env.OAUTH_GOOGLE_ID && process.env.OAUTH_GOOGLE_SECRET
