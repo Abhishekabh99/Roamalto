@@ -1,3 +1,4 @@
+import { writeFileSync } from "node:fs";
 import { db, destroyDb } from "./kysely";
 import type { UserRole } from "./types";
 
@@ -105,6 +106,7 @@ const ADMIN_SEED_ROLE: UserRole = "admin";
 
 async function main() {
   const adminEmail = process.env.ADMIN_SEED_EMAIL ?? "admin@example.com";
+  const seededPackages: Array<{ id: string; slug: string; title: string }> = [];
 
   await db.transaction().execute(async (trx) => {
     await trx
@@ -154,6 +156,12 @@ async function main() {
             .executeTakeFirstOrThrow()
         ).id;
 
+      seededPackages.push({
+        id: packageId,
+        slug: pkg.slug,
+        title: pkg.title,
+      });
+
       for (const stop of pkg.itineraries) {
         await trx
           .insertInto("itineraries")
@@ -173,6 +181,14 @@ async function main() {
       }
     }
   });
+
+  const output = {
+    adminEmail,
+    packages: seededPackages,
+    generatedAt: new Date().toISOString(),
+  };
+
+  writeFileSync(new URL("./seed-output.json", import.meta.url), JSON.stringify(output, null, 2));
 
   console.log("Seed complete. Admin user:", adminEmail);
 }
