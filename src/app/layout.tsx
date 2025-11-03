@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { FloatingWhatsAppButton } from "@/components/FloatingWhatsAppButton";
 import { MobileWhatsAppBar } from "@/components/MobileWhatsAppBar";
+import { AnalyticsProvider } from "@/components/providers/AnalyticsProvider";
+import { ConsentBanner } from "@/components/providers/ConsentBanner";
 import { OG_IMAGE_URL, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -74,6 +76,8 @@ export default function RootLayout({
         <SiteFooter />
         <FloatingWhatsAppButton />
         <MobileWhatsAppBar />
+        <AnalyticsProvider />
+        <ConsentBanner />
       </body>
     </html>
   );

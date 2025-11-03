@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { useWhatsAppClick } from "@/hooks/useWhatsAppClick";
 import {
   DEFAULT_WA_TEXT,
   buildWaLink,
@@ -14,6 +14,7 @@ type WhatsAppCTAProps = WhatsAppLinkOptions & {
   className?: string;
   size?: "sm" | "md" | "lg";
   variant?: "primary" | "light";
+  surface?: string;
 };
 
 const baseStyles =
@@ -41,15 +42,24 @@ export const WhatsAppCTA = ({
   className = "",
   size = "md",
   variant = "primary",
+  surface = "primary-cta",
 }: WhatsAppCTAProps) => {
-  const { track } = useAnalytics();
   const message = text?.trim() ? text : DEFAULT_WA_TEXT;
   const mergedUtm = useMemo(() => mergeWaUtm(utm), [utm]);
 
   const href = useMemo(
-    () => buildWaLink(phone, message, utm),
-    [phone, message, utm],
+    () => buildWaLink(phone, message, mergedUtm),
+    [phone, message, mergedUtm],
   );
+
+  const handleClick = useWhatsAppClick({
+    href,
+    phone,
+    label,
+    message,
+    utm: mergedUtm,
+    surface,
+  });
 
   return (
     <a
@@ -58,15 +68,7 @@ export const WhatsAppCTA = ({
       rel="noopener"
       aria-label={label}
       className={`${baseStyles} min-h-[44px] ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
-      onClick={() =>
-        track({
-          event: "whatsapp_cta_click",
-          phone,
-          utm: mergedUtm,
-          label,
-          text: message,
-        })
-      }
+      onClick={handleClick}
     >
       {label}
     </a>

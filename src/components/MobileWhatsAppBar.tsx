@@ -96,6 +96,7 @@ export const MobileWhatsAppBar = ({
             size="sm"
             variant="light"
             className="whitespace-nowrap"
+            surface="sticky-mobile-footer"
           />
           <button
             type="button"

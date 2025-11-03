@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { CONTACT_PHONE } from "@/data/site";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { useWhatsAppClick } from "@/hooks/useWhatsAppClick";
 import {
   DEFAULT_WA_TEXT,
   buildWaLink,
@@ -22,14 +22,21 @@ export const FloatingWhatsAppButton = ({
   text,
   utm,
 }: FloatingWhatsAppButtonProps) => {
-  const { track } = useAnalytics();
-
   const message = text?.trim() ? text : DEFAULT_WA_TEXT;
   const mergedUtm = useMemo(() => mergeWaUtm(utm), [utm]);
   const href = useMemo(
-    () => buildWaLink(phone, message, utm),
-    [phone, message, utm],
+    () => buildWaLink(phone, message, mergedUtm),
+    [phone, message, mergedUtm],
   );
+
+  const handleClick = useWhatsAppClick({
+    href,
+    phone,
+    label,
+    message,
+    utm: mergedUtm,
+    surface: "floating-button",
+  });
 
   return (
     <a
@@ -38,16 +45,7 @@ export const FloatingWhatsAppButton = ({
       rel="noopener"
       aria-label={label}
       className="fixed bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-deepgreen text-white shadow-lg transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-deepgreen md:hidden"
-      onClick={() =>
-        track({
-          event: "whatsapp_cta_click",
-          phone,
-          utm: mergedUtm,
-          label,
-          text: message,
-          surface: "floating-button",
-        })
-      }
+      onClick={handleClick}
     >
       <span className="sr-only">{label}</span>
       <svg
