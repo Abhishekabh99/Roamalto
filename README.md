@@ -97,3 +97,31 @@ Deploy on Vercel or any Node.js host. Remember to set the production domain in `
 2. Build the project using `npm run build`.
 3. Authenticate with `npx vercel login` if you have not linked your Vercel account in this environment.
 4. Deploy to production via `npm run deploy:vercel`.
+
+#### Vercel environment variables
+
+Configure the following variables in Project Settings → Environment Variables before running the first deploy:
+
+| Key | Suggested value (see `.env.local`) |
+| --- | --- |
+| `DATABASE_URL` | Connection string for your production Vercel Postgres (or Supabase / Neon) instance |
+| `NEXTAUTH_URL` | `https://<your-production-domain>` |
+| `NEXTAUTH_SECRET` | 32+ character random string (`openssl rand -base64 32`) |
+| `EMAIL_SERVER_HOST` | SMTP host (Mailtrap, Postmark, Resend, etc.) |
+| `EMAIL_SERVER_PORT` | SMTP port |
+| `EMAIL_SERVER_USER` | SMTP username |
+| `EMAIL_SERVER_PASSWORD` | SMTP password |
+| `EMAIL_FROM` | Friendly from address (e.g. `travel@roamalto.com`) |
+| `OAUTH_GOOGLE_ID` / `OAUTH_GOOGLE_SECRET` | (Optional) Google OAuth credentials when enabling Google sign-in |
+| `ADMIN_SEED_EMAIL` | Comma-separated list of admin emails seeded into the database |
+| `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | (Optional) Upstash credentials for production rate limiting |
+| `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD` | `1` to bypass Google Font download during Vercel builds in restricted networks |
+
+After pushing to GitHub, Vercel will build preview deployments automatically. To deploy from the CLI, run:
+
+```bash
+npx vercel login
+npx vercel --prod --yes
+```
+
+If your environment blocks Google Fonts during the build step, keep `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD=1` (or supply a local font) in the Vercel build environment.
