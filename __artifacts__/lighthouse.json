@@ -1,0 +1,7 @@
+{
+  "timestamp": "2025-11-03T13:28:18+05:30",
+  "status": "skipped",
+  "reason": "Lighthouse requires a running local server; unable to start due to missing Postgres service.",
+  "mobile": null,
+  "desktop": null
+}

@@ -1,0 +1,2 @@
+status,error
+unavailable,"Export not generated: local Next.js server could not be reached (requires running Postgres)."
