@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-11-03T13:24:57+05:30",
+  "note": "Demo flows could not be executed because the local Next.js dev server is not running; Docker-based Postgres is unavailable in this environment.",
+  "requests": [
+    {
+      "name": "event_page_view",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/event"
+    },
+    {
+      "name": "event_cta_click",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/event"
+    },
+    {
+      "name": "lead_create",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/lead"
+    },
+    {
+      "name": "inquiry_create",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/inquiry"
+    },
+    {
+      "name": "booking_create",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/booking"
+    },
+    {
+      "name": "booking_status_update",
+      "status": "error",
+      "details": "Connection refused at http://localhost:3000/api/booking/:id/status"
+    }
+  ]
+}
