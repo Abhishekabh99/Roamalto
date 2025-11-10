@@ -1,4 +1,6 @@
-export const CONTACT_PHONE = "91XXXXXXXXXX";
+const FALLBACK_CONTACT_PHONE = "91XXXXXXXXXX";
+const publicPhone = process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.replace(/\D/g, "");
+export const CONTACT_PHONE = publicPhone && publicPhone.length > 5 ? publicPhone : FALLBACK_CONTACT_PHONE;
 export const CONTACT_EMAIL = "hello@roamalto.example";
 
 export const DEFAULT_UTM = {

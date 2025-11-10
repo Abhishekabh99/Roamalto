@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useWhatsAppClick } from "@/hooks/useWhatsAppClick";
 import {
+  DEFAULT_WA_PHONE,
   DEFAULT_WA_TEXT,
   buildWaLink,
   mergeWaUtm,
@@ -18,12 +19,12 @@ type WhatsAppCTAProps = WhatsAppLinkOptions & {
 };
 
 const baseStyles =
-  "inline-flex w-full items-center justify-center rounded-xl font-semibold shadow-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 md:w-auto";
+  "inline-flex w-full items-center justify-center rounded-xl font-semibold leading-snug shadow-lg transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 md:w-auto";
 
 const sizeStyles: Record<NonNullable<WhatsAppCTAProps["size"]>, string> = {
-  sm: "px-4 py-2.5 text-sm md:text-base",
-  md: "px-5 py-3 text-sm md:text-base",
-  lg: "px-6 py-3.5 text-base md:text-lg",
+  sm: "px-4 py-2.5 text-[clamp(0.875rem,1.8vw,1rem)]",
+  md: "px-5 py-3 text-[clamp(0.9375rem,1.9vw,1.0625rem)]",
+  lg: "px-6 py-3.5 text-[clamp(1rem,2vw,1.1875rem)]",
 };
 
 const variantStyles: Record<NonNullable<WhatsAppCTAProps["variant"]>, string> =
@@ -35,7 +36,7 @@ const variantStyles: Record<NonNullable<WhatsAppCTAProps["variant"]>, string> =
   };
 
 export const WhatsAppCTA = ({
-  phone,
+  phone = DEFAULT_WA_PHONE,
   text,
   utm,
   label = "Chat on WhatsApp",
@@ -44,7 +45,7 @@ export const WhatsAppCTA = ({
   variant = "primary",
   surface = "primary-cta",
 }: WhatsAppCTAProps) => {
-  const message = text?.trim() ? text : DEFAULT_WA_TEXT;
+  const message = text?.trim() ? text.trim() : DEFAULT_WA_TEXT;
   const mergedUtm = useMemo(() => mergeWaUtm(utm), [utm]);
 
   const href = useMemo(

@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
-import { CONTACT_PHONE } from "@/data/site";
 import { useWhatsAppClick } from "@/hooks/useWhatsAppClick";
 import {
+  DEFAULT_WA_PHONE,
   DEFAULT_WA_TEXT,
   buildWaLink,
   mergeWaUtm,
@@ -18,11 +18,11 @@ type FloatingWhatsAppButtonProps = {
 
 export const FloatingWhatsAppButton = ({
   label = "Chat with Roamalto on WhatsApp",
-  phone = CONTACT_PHONE,
+  phone = DEFAULT_WA_PHONE,
   text,
   utm,
 }: FloatingWhatsAppButtonProps) => {
-  const message = text?.trim() ? text : DEFAULT_WA_TEXT;
+  const message = text?.trim() ? text.trim() : DEFAULT_WA_TEXT;
   const mergedUtm = useMemo(() => mergeWaUtm(utm), [utm]);
   const href = useMemo(
     () => buildWaLink(phone, message, mergedUtm),

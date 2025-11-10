@@ -118,7 +118,7 @@ export const MobileMenu = ({
             href={item.href}
             aria-current={isActive ? "page" : undefined}
             onClick={handleLinkClick}
-            className={`block w-full rounded-lg px-4 py-3 text-base transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green ${
+            className={`block w-full rounded-lg px-4 py-3 text-[clamp(1rem,1.2vw,1.125rem)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green ${
               isActive
                 ? "bg-slate-50 text-brand-green"
                 : "text-brand-slate hover:bg-slate-50"
@@ -150,9 +150,9 @@ export const MobileMenu = ({
           aria-modal="true"
           aria-label="Mobile navigation"
           tabIndex={-1}
-          className="fixed inset-x-0 top-[env(safe-area-inset-top)] bottom-[env(safe-area-inset-bottom)] z-[61] overflow-y-auto bg-white md:hidden"
+          className="fixed inset-0 z-[61] flex flex-col bg-white md:hidden"
         >
-          <div className="px-4 py-4">
+          <div className="flex-1 overflow-y-auto px-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] pt-[calc(env(safe-area-inset-top)+1.25rem)]">
             <nav aria-label="Mobile">
               <ul className="flex flex-col gap-1">{renderedItems}</ul>
             </nav>

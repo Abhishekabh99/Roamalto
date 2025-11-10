@@ -42,7 +42,7 @@ export default function ContactPage() {
   return (
     <main
       id="main-content"
-      className="container mx-auto max-w-screen-xl flex-1 px-4"
+      className="container mx-auto max-w-screen-xl flex-1 px-4 sm:px-6 lg:px-8"
     >
       <section className="py-10 md:py-14 lg:py-20">
         <div className="mx-auto flex max-w-4xl flex-col gap-10">
@@ -52,16 +52,16 @@ export default function ContactPage() {
             description="WhatsApp is the fastest way to reach us. We reply within business hours: Monday to Saturday, 10:00–19:00 IST."
             align="center"
           />
-          <div className="rounded-3xl bg-white p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
+          <div className="rounded-3xl bg-white p-6 shadow-[var(--shadow-card)] ring-1 ring-border sm:p-8 md:p-10">
             <div className="space-y-6">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-green">
+                <p className="text-[clamp(0.85rem,1vw,0.95rem)] font-semibold uppercase tracking-[0.3em] text-brand-green">
                   WhatsApp
                 </p>
-                <p className="mt-2 text-lg font-semibold text-brand-slate">
+                <p className="mt-2 text-[clamp(1.5rem,1.4vw+1rem,2rem)] font-semibold text-brand-slate">
                   +{CONTACT_PHONE}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
+                <p className="mt-3 text-[clamp(0.95rem,1.05vw,1.05rem)] leading-relaxed text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
                   Share your travel dates, cities, traveller count, and special requests. We usually respond within a couple of hours.
                 </p>
                 <div className="mt-4">
@@ -76,16 +76,16 @@ export default function ContactPage() {
               </div>
               <div className="h-px bg-border" />
               <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-brand-green">
+                <p className="text-[clamp(0.85rem,1vw,0.95rem)] font-semibold uppercase tracking-[0.3em] text-brand-green">
                   Email
                 </p>
                 <Link
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="mt-2 inline-flex h-11 items-center rounded-full px-4 text-lg font-semibold text-brand-slate transition-colors hover:text-brand-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-full px-4 text-[clamp(1.05rem,1.2vw,1.3rem)] font-semibold text-brand-slate transition-colors hover:text-brand-green focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   {CONTACT_EMAIL}
                 </Link>
-                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
+                <p className="mt-3 text-[clamp(0.95rem,1.05vw,1.05rem)] leading-relaxed text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
                   Prefer email summaries? Drop us your draft itinerary or wish-list and we’ll respond with next steps within one business day.
                 </p>
               </div>

@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2025-11-07T10:44:31Z",
+  "exports": {
+    "leads": "__artifacts__/exports/leads.csv",
+    "events": "__artifacts__/exports/events.csv",
+    "bookings": "__artifacts__/exports/bookings.csv",
+    "status": "pending - run npm run export:* after starting the app"
+  },
+  "lighthouse": {
+    "home": "__artifacts__/lighthouse-home.json",
+    "packages": "__artifacts__/lighthouse-packages.json",
+    "notes": "__artifacts__/lighthouse-notes.md"
+  },
+  "screens": {
+    "directory": "__artifacts__/screens",
+    "status": "pending refresh via browser_container"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:3000/",
+        "http://localhost:3000/packages"
+      ],
+      "numberOfRuns": 1,
+      "settings": {
+        "formFactor": "desktop",
+        "screenEmulation": {
+          "disabled": false
+        }
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "__artifacts__"
+    }
+  }
+}

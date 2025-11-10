@@ -487,7 +487,7 @@ export const AdminDashboard = ({
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-slate/70">
+            <p className="text-[clamp(0.95rem,1.05vw,1.05rem)] text-slate/70">
               Showing <span className="font-semibold text-deepgreen">{filteredLeads.length}</span> of {" "}
               {leadsState.length} leads
             </p>
@@ -495,7 +495,7 @@ export const AdminDashboard = ({
               type="button"
               onClick={() => handleExport("leads", { from: leadFrom || undefined, to: leadTo || undefined })}
               disabled={isExporting}
-              className="inline-flex items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-[clamp(0.95rem,1.05vw,1.05rem)] font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
             >
               Export CSV
             </button>
@@ -625,7 +625,7 @@ export const AdminDashboard = ({
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-slate/70">
+            <p className="text-[clamp(0.95rem,1.05vw,1.05rem)] text-slate/70">
               Showing <span className="font-semibold text-deepgreen">{filteredBookings.length}</span> of {" "}
               {bookingsState.length} bookings
             </p>
@@ -633,7 +633,7 @@ export const AdminDashboard = ({
               type="button"
               onClick={() => handleExport("bookings", { from: bookingFrom || undefined, to: bookingTo || undefined })}
               disabled={isExporting}
-              className="inline-flex items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-[clamp(0.95rem,1.05vw,1.05rem)] font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
             >
               Export CSV
             </button>
@@ -794,7 +794,7 @@ export const AdminDashboard = ({
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-slate/70">
+            <p className="text-[clamp(0.95rem,1.05vw,1.05rem)] text-slate/70">
               Showing <span className="font-semibold text-deepgreen">{filteredEvents.length}</span> of {" "}
               {eventsState.length} events
             </p>
@@ -802,7 +802,7 @@ export const AdminDashboard = ({
               type="button"
               onClick={() => handleExport("events", { from: eventFrom || undefined, to: eventTo || undefined })}
               disabled={isExporting}
-              className="inline-flex items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-lg bg-deepgreen px-4 py-2 text-[clamp(0.95rem,1.05vw,1.05rem)] font-semibold text-white shadow-sm transition hover:bg-deepgreen/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen/40 disabled:cursor-not-allowed disabled:bg-deepgreen/40"
             >
               Export CSV
             </button>
