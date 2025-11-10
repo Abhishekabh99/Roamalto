@@ -150,9 +150,9 @@ export const MobileMenu = ({
           aria-modal="true"
           aria-label="Mobile navigation"
           tabIndex={-1}
-          className="fixed inset-0 z-[61] flex flex-col bg-white md:hidden"
+          className="fixed inset-0 z-[61] flex flex-col overflow-y-auto bg-white p-4 pt-[calc(env(safe-area-inset-top)+1.25rem)] pb-[calc(env(safe-area-inset-bottom)+1.5rem)] md:hidden"
         >
-          <div className="flex-1 overflow-y-auto px-4 pb-[calc(env(safe-area-inset-bottom)+1.5rem)] pt-[calc(env(safe-area-inset-top)+1.25rem)]">
+          <div className="flex-1">
             <nav aria-label="Mobile">
               <ul className="flex flex-col gap-1">{renderedItems}</ul>
             </nav>
