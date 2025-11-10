@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const DESKTOP_LINK_CLASSES =
-  "inline-flex items-center rounded-xl px-4 py-2 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+  "inline-flex items-center rounded-xl px-4 py-2 text-[clamp(0.95rem,1.1vw,1.05rem)] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 export const NavBar = () => {
   const pathname = usePathname();
@@ -82,22 +82,22 @@ export const NavBar = () => {
   const toggleLabel = open ? "Close menu" : "Open menu";
 
   return (
-    <header className="sticky top-[env(safe-area-inset-top)] z-40 border-b border-border bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-screen-xl items-center justify-between px-4">
+    <header className="sticky top-0 z-40 border-b border-border bg-white/90 pt-[max(env(safe-area-inset-top),0px)] backdrop-blur">
+      <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
         <Link
           href="/"
           aria-label="Roamalto home"
-          className="flex items-center gap-3 text-lg font-semibold text-brand-green transition-colors hover:text-brand-green/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+          className="flex items-center gap-3 text-[clamp(1.125rem,1.5vw,1.35rem)] font-semibold text-brand-green transition-colors hover:text-brand-green/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
         >
           Roamalto
         </Link>
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-6 md:flex"
+          className="hidden items-center gap-4 lg:gap-6 md:flex"
         >
           {desktopLinks}
         </nav>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3 sm:gap-4">
           <WhatsAppCTA
             phone={CONTACT_PHONE}
             text="Hi Roamalto, I'm browsing your site."
@@ -108,7 +108,7 @@ export const NavBar = () => {
           <button
             ref={triggerRef}
             type="button"
-            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+            className="md:hidden inline-flex h-11 w-11 min-h-[44px] items-center justify-center rounded-xl border border-slate-200 bg-white/90 px-0 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
             aria-label={toggleLabel}
             aria-controls="mobile-menu"
             aria-expanded={open}

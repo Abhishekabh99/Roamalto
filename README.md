@@ -2,126 +2,104 @@
 
 Founder-led Europe travel (Italy • Poland • Switzerland). WhatsApp-first inquiries.
 
-## Quickstart
+## Local Demo
 
-```bash
-npm install
-npm run dev
-```
-
-- Dev server: http://localhost:3000
-- Type-check & lint: `npm run lint`
-- Production build: `npm run build` then `npm run start`
-
-## Backend Setup
-
-1. Duplicate `.env.example` into `.env.local`.
-2. Populate the following variables:
-   - `DATABASE_URL`: Vercel Postgres connection string (Project Settings → Storage → Connect).
-   - `NEXTAUTH_SECRET`: 32+ character random string (`openssl rand -base64 32`).
-   - `NEXTAUTH_URL`: Application origin (e.g. `http://localhost:3000` for local development).
-   - `EMAIL_*`: SMTP credentials for the NextAuth email provider (Resend, Mailtrap, Postmark, etc.).
-   - `ADMIN_SEED_EMAIL`: The email that should receive the initial admin magic link.
-   - Optional: `OAUTH_GOOGLE_*` for Google sign-in and `UPSTASH_REDIS_*` for production-grade rate limiting. Without Upstash the API falls back to an in-memory limiter suitable for development only.
-3. Seed the database:
-
+1. Copy environment variables:
    ```bash
-   npm run db:seed
+   cp .env.example .env.local
    ```
-
-   The script ensures the admin user (using `ADMIN_SEED_EMAIL`) and the demo travel packages exist.
-
-4. Trigger the email sign-in flow by visiting `/api/auth/signin`, entering the seeded admin email, and clicking the magic link delivered by your SMTP provider. This grants access to `/admin`.
-5. Mirror the same environment variables in the Vercel dashboard (Project Settings → Environment Variables) for each deployment environment.
-6. Need a local Postgres quickly? Use Docker helpers:
-
+2. Start the local Postgres instance (Docker required):
    ```bash
-   npm run dev:db       # start or reuse roamalto-postgres container
-   npm run dev:db:stop  # stop & remove the container
+   npm run dev:db
    ```
+   The helper script reuses an existing `roamalto-postgres` container or provisions one with a `roamalto_pg` volume so data survives restarts.
+3. Install dependencies:
+   ```bash
+   npm ci
+   ```
+4. Seed demo data (packages, admin user, and analytics fixtures):
+   ```bash
+   npm run seed
+   ```
+5. Run the development server (fonts disabled for restrictive networks):
+   ```bash
+   NEXT_PRIVATE_SKIP_FONT_DOWNLOAD=1 npm run dev
+   ```
+6. Visit `http://localhost:3000` for the marketing site, `http://localhost:3000/api/auth/signin` to trigger a magic link, and `/admin` after completing the sign-in flow.
 
-   The scripts expose Postgres on `postgres://roamalto:pass@localhost:5432/roamalto`, which matches the default `DATABASE_URL` in `.env.local`.
+> **Magic link login** – when SMTP credentials are not set the magic link is printed to the dev server logs. Share the link with `ADMIN_SEED_EMAIL` (defaults to `admin@roamalto.demo`) to enter the admin dashboard.
 
-## Tech Stack
+## Production Deploy (Vercel via GitHub)
 
-- Next.js App Router, TypeScript, Tailwind CSS v4
+### Environment variables
+
+| Key | Purpose | Example |
+| --- | --- | --- |
+| `DATABASE_URL` | Vercel Postgres / external Postgres connection string | `postgres://...` |
+| `PGPOOL_MAX` | Optional pool size override | `10` |
+| `NEXTAUTH_SECRET` | Secret used by NextAuth | `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | Public origin for callbacks | `https://roamalto.com` |
+| `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD` | Set to `1` to avoid downloading Google Fonts during builds | `1` |
+| `EMAIL_SERVER_HOST` / `EMAIL_SERVER_PORT` / `EMAIL_SERVER_USER` / `EMAIL_SERVER_PASSWORD` | SMTP provider for magic links | – |
+| `EMAIL_FROM` | From email for authentication | `travel@roamalto.com` |
+| `ADMIN_SEED_EMAIL` | Comma-separated admin emails seeded into the DB | `admin@roamalto.com` |
+| `OAUTH_GOOGLE_ID` / `OAUTH_GOOGLE_SECRET` | Optional Google OAuth support | – |
+| `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | Optional production-grade rate limiting | – |
+| `NEXT_PUBLIC_WHATSAPP_PHONE` | Public phone number for all WhatsApp CTAs | `919876543210` |
+| `NEXT_PUBLIC_WHATSAPP_TEXT` | Default pre-filled WhatsApp message | `Hi Abhishek, I want a Europe package!` |
+| `SITEMAP_BASE_URL` | Base URL for sitemap/robots + SEO metadata | `https://roamalto.com` |
+
+Mirror the same variables in the Vercel dashboard for Preview, Development, and Production environments.
+
+### Database & auth handoff
+
+- Run `npm run seed` locally (or via CI) whenever you need to bootstrap a new database with featured packages and the initial admin account.
+- Keep `ADMIN_SEED_EMAIL` aligned between `.env.local` and Vercel so the seeded admin receives the first magic link.
+- The Kysely client reads `DATABASE_URL` and `PGPOOL_MAX`; Postgres pooling defaults to `10` connections when unset.
+
+### WhatsApp configuration
+
+- `NEXT_PUBLIC_WHATSAPP_PHONE` and `NEXT_PUBLIC_WHATSAPP_TEXT` drive every CTA (`WhatsAppCTA`, floating button, sticky footer). Missing values fall back to safe defaults so links never break.
+- `CONTACT_PHONE` in `src/data/site.ts` derives from the public env, ensuring the displayed number always matches the actual CTA target.
+
+### SEO & sitemap
+
+- Metadata for `/`, `/packages`, `/contact`, and `/privacy` now includes enriched Open Graph and Twitter tags. Update descriptions or titles as needed.
+- `SITEMAP_BASE_URL` feeds `metadataBase`, the App Router sitemap (`src/app/sitemap.ts`), and `next-sitemap` for static exports.
+- After every production build, the `postbuild` script runs `next-sitemap` to output `public/sitemap.xml` and `public/robots.txt` based on `next-sitemap.config.js`.
+
+## Quality checks & scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run lint` | ESLint + TypeScript rules |
+| `npm run typecheck` | `tsc --noEmit` validation |
+| `npm run test` | Node test runner for library suites |
+| `npm run build` | Production build verification |
+| `npm run dev:db` | Start or reuse the Dockerised Postgres instance |
+| `npm run dev:db:stop` | Stop & remove the local Postgres container |
+| `npm run seed` | Seed database using dotenv-aware runner |
+| `npm run export:leads` / `export:events` / `export:bookings` | Download CSV exports into `__artifacts__/exports/` |
+| `npm run lh` | Run Lighthouse (home + packages) and save JSON reports into `__artifacts__/` |
+
+## Exports & artifacts
+
+- CSV exports land in `__artifacts__/exports/` (`leads.csv`, `events.csv`, `bookings.csv`).
+- Lighthouse runs create `__artifacts__/lighthouse-home.json`, `__artifacts__/lighthouse-packages.json`, and a companion `__artifacts__/lighthouse-notes.md` summary.
+- Capture UI screenshots into `__artifacts__/screens/` and keep `__artifacts__/manifest.json` updated with timestamps + file references for handoff packages.
+
+## Tech stack
+
+- Next.js App Router (TypeScript, Tailwind CSS v4)
 - Inter via `next/font`
-- Strict ESLint + Prettier defaults from Next.js
+- Kysely + Postgres
+- NextAuth email magic links
 
-## Content & Customisation
+## Content & customisation
 
 - Brand copy, phone, email, and UTM defaults: `src/data/site.ts`
-- Featured packages and sample itineraries: `src/data/packages.ts`
-- Shared UI components (CTA, cards, modal, headings): `src/components/`
-- Pages live under `src/app/`:
-  - `/` home with JSON-LD, featured packages, founder picks
-  - `/packages`, `/process`, `/contact`, `/privacy`
-  - `/sitemap.xml`, `/robots.txt` generated from `sitemap.ts` and `robots.ts`
+- Packages and itineraries: `src/data/packages.ts`
+- Shared UI components (CTA, cards, modals): `src/components/`
+- Admin dashboard tables/cards: `src/components/admin/AdminDashboard.tsx`
 
-Update the `CONTACT_PHONE` placeholder before launch so WhatsApp CTAs resolve correctly.
-
-## WhatsApp Analytics
-
-Clicking any WhatsApp button pushes an event to `window.dataLayer`. If you connect Google Tag Manager, listen for `whatsapp_cta_click` events to trigger tags.
-
-## Magic Link Sign-In Demo
-
-With the default `.env.local` the email provider falls back to console logging whenever SMTP credentials are missing. To demo the admin login flow locally:
-
-1. Start the dev server with font downloads disabled: `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD=1 npm run dev`.
-2. Visit `http://localhost:3000/api/auth/signin` and enter `ADMIN_SEED_EMAIL` (defaults to `admin@roamalto.demo`).
-3. The server prints a line similar to:
-
-   ```
-   [auth][magic-link] No SMTP configured. Share this link with admin@roamalto.demo: https://...
-   ```
-
-4. Open the printed magic link in a browser tab to complete sign-in, then load `/admin` to access the dashboard.
-
-When SMTP credentials are provided, the same flow delivers magic links via the configured provider (e.g. Mailtrap, Postmark, Resend).
-
-## Quality Checks
-
-- `npm run lint` – ESLint + TypeScript rules
-- `npm run typecheck` – tsc in no-emit mode
-- `npm run test` – Node test runner for validation suites
-- `npm run build` – production build verification
-
-## Deployment
-
-Deploy on Vercel or any Node.js host. Remember to set the production domain in `src/app/layout.tsx` (`metadataBase`) and `sitemap.ts` / `robots.ts` before going live.
-
-### Vercel Deployment
-
-1. Install dependencies with `npm ci`.
-2. Build the project using `npm run build`.
-3. Authenticate with `npx vercel login` if you have not linked your Vercel account in this environment.
-4. Deploy to production via `npm run deploy:vercel`.
-
-#### Vercel environment variables
-
-Configure the following variables in Project Settings → Environment Variables before running the first deploy:
-
-| Key | Suggested value (see `.env.local`) |
-| --- | --- |
-| `DATABASE_URL` | Connection string for your production Vercel Postgres (or Supabase / Neon) instance |
-| `NEXTAUTH_URL` | `https://<your-production-domain>` |
-| `NEXTAUTH_SECRET` | 32+ character random string (`openssl rand -base64 32`) |
-| `EMAIL_SERVER_HOST` | SMTP host (Mailtrap, Postmark, Resend, etc.) |
-| `EMAIL_SERVER_PORT` | SMTP port |
-| `EMAIL_SERVER_USER` | SMTP username |
-| `EMAIL_SERVER_PASSWORD` | SMTP password |
-| `EMAIL_FROM` | Friendly from address (e.g. `travel@roamalto.com`) |
-| `OAUTH_GOOGLE_ID` / `OAUTH_GOOGLE_SECRET` | (Optional) Google OAuth credentials when enabling Google sign-in |
-| `ADMIN_SEED_EMAIL` | Comma-separated list of admin emails seeded into the database |
-| `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` | (Optional) Upstash credentials for production rate limiting |
-| `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD` | `1` to bypass Google Font download during Vercel builds in restricted networks |
-
-After pushing to GitHub, Vercel will build preview deployments automatically. To deploy from the CLI, run:
-
-```bash
-npx vercel login
-npx vercel --prod --yes
-```
-
-If your environment blocks Google Fonts during the build step, keep `NEXT_PRIVATE_SKIP_FONT_DOWNLOAD=1` (or supply a local font) in the Vercel build environment.
+When updating metadata or domain, adjust `SITEMAP_BASE_URL` and redeploy so both runtime sitemap handlers and `next-sitemap` outputs align with the new origin.

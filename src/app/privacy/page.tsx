@@ -39,9 +39,12 @@ const lastUpdated = "December 2024";
 
 export default function PrivacyPage() {
   return (
-    <main id="main-content" className="container mx-auto max-w-screen-xl flex-1 px-4">
+    <main
+      id="main-content"
+      className="container mx-auto max-w-screen-xl flex-1 px-4 sm:px-6 lg:px-8"
+    >
       <section className="py-10 md:py-14 lg:py-20">
-        <article className="mx-auto max-w-3xl space-y-8 text-sm leading-relaxed text-foreground-muted md:text-base">
+        <article className="mx-auto max-w-3xl space-y-8 text-[clamp(0.95rem,1.05vw,1.05rem)] leading-relaxed text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
           <h1 className="heading-1 text-brand-slate">Privacy Policy</h1>
           <p className="text-slate/70">Last updated: {lastUpdated}</p>
           <p>

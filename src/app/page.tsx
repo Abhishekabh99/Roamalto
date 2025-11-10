@@ -111,13 +111,13 @@ export default function Home() {
   return (
     <main
       id="main-content"
-      className="container mx-auto max-w-screen-xl flex-1 px-4"
+      className="container mx-auto max-w-screen-xl flex-1 px-4 sm:px-6 lg:px-8"
     >
       <section className="py-10 md:py-14 lg:py-20">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-white/85 p-8 shadow-[var(--shadow-card)] ring-1 ring-border md:p-12">
-          <div className="flex min-h-[60vh] flex-col gap-10 md:min-h-[65vh] md:flex-row md:items-center md:justify-between md:gap-16">
-            <div className="flex flex-1 flex-col gap-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-green">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-white/85 p-6 shadow-[var(--shadow-card)] ring-1 ring-border sm:p-8 md:p-12">
+          <div className="flex min-h-[60vh] flex-col gap-8 md:min-h-[65vh] md:flex-row md:items-center md:justify-between md:gap-16">
+            <div className="flex flex-1 flex-col gap-5 lg:gap-6">
+              <p className="text-[clamp(0.75rem,0.9vw,0.85rem)] font-semibold uppercase tracking-[0.3em] text-brand-green">
                 Less planning, more roaming.
               </p>
               <h1 className="heading-1">
@@ -128,7 +128,7 @@ export default function Home() {
                 travellers — visas, bookings, and on-trip support handled. WhatsApp me
                 and we start building your route right away.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3 sm:gap-4">
                 <WhatsAppCTA
                   phone={CONTACT_PHONE}
                   text="Hi Roamalto, I'd like to plan a Europe trip."
@@ -138,7 +138,7 @@ export default function Home() {
                 />
                 <a
                   href="#why-us"
-                  className="inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold text-brand-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                  className="inline-flex min-h-[44px] items-center rounded-full px-4 text-[clamp(0.95rem,1.1vw,1.05rem)] font-semibold text-brand-slate underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   See why travellers pick us
                 </a>
@@ -160,20 +160,20 @@ export default function Home() {
       </section>
 
       <section id="why-us" className="py-10 md:py-14 lg:py-20">
-        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border sm:p-8 md:p-10">
           <SectionHeading
             eyebrow="Why Roamalto"
             title="Trusted by families, honeymooners, and solo explorers"
             description="Founder-led planning with concierge-level support at every step."
           />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8">
             {WHY_US_POINTS.map((point) => (
               <article
                 key={point.title}
-                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
+                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md sm:p-6"
               >
                 <h3 className="heading-3">{point.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
+                <p className="mt-3 text-[clamp(0.95rem,1.05vw,1.05rem)] leading-relaxed text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
                   {point.description}
                 </p>
               </article>
@@ -190,7 +190,7 @@ export default function Home() {
             description="Ask for price ranges, personalise every detail, and get a transparent inclusions/exclusions sheet before you confirm."
           />
           <FeaturedPackagesSection packages={featuredPackages} />
-          <p className="text-sm text-foreground-muted md:text-base">
+          <p className="text-[clamp(0.95rem,1.05vw,1.05rem)] text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
             You always know what&apos;s covered and what&apos;s optional add-on — I flag each
             inclusion and exclusion upfront so there are zero surprises later.
           </p>
@@ -198,23 +198,23 @@ export default function Home() {
       </section>
 
       <section id="process" className="py-10 md:py-14 lg:py-20">
-        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border sm:p-8 md:p-10">
           <SectionHeading
             eyebrow="How We Work"
             title="Visas, bookings, and on-trip support handled"
             description="A four-step flow that keeps planning easy and transparent."
           />
-          <ol className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          <ol className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
             {howWeWork.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
+                className="rounded-2xl bg-brand-sand/60 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md sm:p-6"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">
+                <p className="text-[clamp(0.75rem,0.9vw,0.85rem)] font-semibold uppercase tracking-[0.2em] text-brand-green">
                   Step {index + 1}
                 </p>
                 <h3 className="mt-2 heading-3">{step.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground-muted md:text-base">
+                <p className="mt-3 text-[clamp(0.95rem,1.05vw,1.05rem)] leading-relaxed text-foreground-muted md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)]">
                   {step.description}
                 </p>
               </li>
@@ -224,17 +224,17 @@ export default function Home() {
       </section>
 
       <section id="founder" className="py-10 md:py-14 lg:py-20">
-        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border md:p-10">
+        <div className="rounded-3xl bg-white/90 p-6 shadow-[var(--shadow-card)] ring-1 ring-border sm:p-8 md:p-10">
           <SectionHeading
             eyebrow="Founder’s Photo-Spots"
             title="Personally scouted photo spots"
             description="Every stop here is a location I've walked, shot, and approved before it makes your itinerary."
           />
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
             {FOUNDER_SPOTS.map((spot, index) => (
               <article
                 key={spot.title}
-                className="flex flex-col justify-between rounded-2xl bg-white/95 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md md:p-6"
+                className="flex flex-col justify-between rounded-2xl bg-white/95 p-5 shadow-sm ring-1 ring-border transition-shadow hover:shadow-md sm:p-6"
               >
                 <div>
                   <Image
@@ -248,11 +248,11 @@ export default function Home() {
                     sizes="(min-width: 1280px) 24vw, (min-width: 1024px) 28vw, (min-width: 768px) 45vw, 92vw"
                   />
                   <h3 className="mt-4 heading-3">{spot.title}</h3>
-                  <p className="mt-3 text-sm text-foreground-muted leading-relaxed overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] md:text-base md:overflow-visible md:[display:block] md:[-webkit-line-clamp:unset]">
+                  <p className="mt-3 text-[clamp(0.95rem,1.05vw,1.05rem)] text-foreground-muted leading-relaxed overflow-hidden [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical] md:text-[clamp(1.05rem,1vw+0.5rem,1.2rem)] md:overflow-visible md:[display:block] md:[-webkit-line-clamp:unset]">
                     {spot.description}
                   </p>
                 </div>
-                <p className="mt-4 text-xs uppercase tracking-[0.2em] text-brand-green">
+                <p className="mt-4 text-[clamp(0.75rem,0.9vw,0.85rem)] uppercase tracking-[0.2em] text-brand-green">
                   Photo recce ready
                 </p>
               </article>

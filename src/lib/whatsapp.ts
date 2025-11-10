@@ -1,6 +1,15 @@
+import { CONTACT_PHONE } from "@/data/site";
+
 const WA_BASE_URL = "https://wa.me/";
 
-export const DEFAULT_WA_TEXT = "Hi Abhishek, I want a Europe package!";
+const FALLBACK_WA_TEXT = "Hi Abhishek, I want a Europe package!";
+
+const envText = process.env.NEXT_PUBLIC_WHATSAPP_TEXT?.trim();
+export const DEFAULT_WA_TEXT = envText && envText.length > 0 ? envText : FALLBACK_WA_TEXT;
+
+const envPhone = process.env.NEXT_PUBLIC_WHATSAPP_PHONE?.replace(/[^\d]/g, "");
+const fallbackPhone = CONTACT_PHONE.replace(/[^\d]/g, "");
+export const DEFAULT_WA_PHONE = envPhone && envPhone.length > 5 ? envPhone : fallbackPhone;
 
 export const DEFAULT_WA_UTM = {
   utm_source: "site",
@@ -9,7 +18,7 @@ export const DEFAULT_WA_UTM = {
 } as const satisfies Record<string, string>;
 
 export type WhatsAppLinkOptions = {
-  phone: string;
+  phone?: string;
   text?: string;
   utm?: Record<string, string | number | undefined>;
 };
@@ -40,11 +49,13 @@ export const mergeWaUtm = (
 });
 
 export const buildWaLink = (
-  phone: string,
+  phone: string | undefined,
   text: string = DEFAULT_WA_TEXT,
   utm?: Record<string, string | number | undefined>,
 ) => {
-  const sanitizedPhone = phone.replace(/[^\d]/g, "");
+  const normalizedPhone = phone && phone.trim().length > 0 ? phone : DEFAULT_WA_PHONE;
+  const sanitizedPhone = normalizedPhone.replace(/[^\d]/g, "");
+  const phoneParam = sanitizedPhone.length > 0 ? sanitizedPhone : DEFAULT_WA_PHONE;
   const params = new URLSearchParams();
   const normalizedText = text.trim() || DEFAULT_WA_TEXT;
   params.set("text", normalizedText);
@@ -55,7 +66,7 @@ export const buildWaLink = (
     params.set(key, value);
   });
 
-  return `${WA_BASE_URL}${sanitizedPhone}?${params.toString()}`;
+  return `${WA_BASE_URL}${phoneParam}?${params.toString()}`;
 };
 
 export const buildWhatsAppLink = ({

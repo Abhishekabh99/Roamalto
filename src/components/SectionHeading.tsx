@@ -21,7 +21,7 @@ export const SectionHeading = ({
   return (
     <header className={`mb-6 flex w-full flex-col gap-4 md:mb-8 ${alignment}`}>
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">
+        <p className="text-[clamp(0.75rem,0.9vw,0.85rem)] font-semibold uppercase tracking-[0.2em] text-brand-green">
           {eyebrow}
         </p>
       ) : null}

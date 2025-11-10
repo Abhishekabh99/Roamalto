@@ -11,8 +11,14 @@
     "test": "node --test --loader ./test/ts-loader.mjs src/lib/__tests__/*.test.ts",
     "deploy:vercel": "vercel --prod --confirm",
     "db:seed": "tsx db/seed.ts",
-    "dev:db": "sh -c \"docker start roamalto-postgres 2>/dev/null || docker run -d --name roamalto-postgres -e POSTGRES_PASSWORD=pass -e POSTGRES_USER=roamalto -e POSTGRES_DB=roamalto -p 5432:5432 postgres:15\"",
-    "dev:db:stop": "sh -c \"docker stop roamalto-postgres 2>/dev/null && docker rm roamalto-postgres 2>/dev/null || true\""
+    "seed": "tsx -r dotenv/config db/seed.ts",
+    "dev:db": "docker start roamalto-postgres || docker run -d --name roamalto-postgres -e POSTGRES_USER=roamalto -e POSTGRES_PASSWORD=pass -e POSTGRES_DB=roamalto -v roamalto_pg:/var/lib/postgresql/data -p 5432:5432 postgres:15",
+    "dev:db:stop": "sh -c \"docker stop roamalto-postgres 2>/dev/null && docker rm roamalto-postgres 2>/dev/null || true\"",
+    "export:leads": "mkdir -p __artifacts__/exports && curl -L 'http://localhost:3000/api/export/leads' -o __artifacts__/exports/leads.csv",
+    "export:events": "mkdir -p __artifacts__/exports && curl -L 'http://localhost:3000/api/export/events' -o __artifacts__/exports/events.csv",
+    "export:bookings": "mkdir -p __artifacts__/exports && curl -L 'http://localhost:3000/api/export/bookings' -o __artifacts__/exports/bookings.csv",
+    "lh": "npx lighthouse http://localhost:3000 --quiet --chrome-flags='--headless' --output=json --output-path=__artifacts__/lighthouse-home.json && npx lighthouse http://localhost:3000/packages --quiet --chrome-flags='--headless' --output=json --output-path=__artifacts__/lighthouse-packages.json",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@fast-csv/format": "^5.0.0",
@@ -39,6 +45,7 @@
     "tailwindcss": "^4",
     "tsx": "^4.19.1",
     "typescript": "^5",
-    "vercel": "^48.7.1"
+    "vercel": "^48.7.1",
+    "next-sitemap": "^4.2.3"
   }
 }

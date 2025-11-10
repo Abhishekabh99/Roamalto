@@ -41,7 +41,7 @@ export default function PackagesPage() {
   return (
     <main
       id="main-content"
-      className="container mx-auto max-w-screen-xl flex-1 px-4"
+      className="container mx-auto max-w-screen-xl flex-1 px-4 sm:px-6 lg:px-8"
     >
       <section className="py-10 md:py-14 lg:py-20">
         <div className="space-y-10">

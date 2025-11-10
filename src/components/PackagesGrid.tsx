@@ -21,7 +21,7 @@ export const PackagesGrid = ({ packages }: PackagesGridProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 md:gap-7 lg:grid-cols-3 lg:gap-8">
         {packages.map((pkg) => (
           <PackageCard
             key={pkg.id}
@@ -34,7 +34,7 @@ export const PackagesGrid = ({ packages }: PackagesGridProps) => {
               <>
                 <button
                   type="button"
-                  className="inline-flex w-full items-center justify-center rounded-full border border-deepgreen px-5 py-3 text-sm font-semibold text-deepgreen transition-colors hover:bg-deepgreen/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-white md:w-auto md:text-base"
+                  className="inline-flex w-full min-h-[44px] items-center justify-center rounded-full border border-deepgreen px-5 py-3 text-[clamp(0.95rem,1.1vw,1.05rem)] font-semibold text-deepgreen transition-colors hover:bg-deepgreen/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deepgreen focus-visible:ring-offset-2 focus-visible:ring-offset-white md:w-auto"
                   aria-haspopup="dialog"
                   aria-expanded={activePackageId === pkg.id}
                   aria-controls={modalId}

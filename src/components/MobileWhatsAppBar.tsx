@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { CONTACT_PHONE } from "@/data/site";
 import { useAnalytics } from "@/hooks/useAnalytics";
-import { DEFAULT_WA_TEXT, mergeWaUtm } from "@/lib/whatsapp";
+import { DEFAULT_WA_PHONE, DEFAULT_WA_TEXT, mergeWaUtm } from "@/lib/whatsapp";
 import { WhatsAppCTA } from "@/components/WhatsAppCTA";
 
 const STORAGE_KEY = "roamalto-mobile-cta-dismissed";
@@ -17,7 +16,7 @@ type MobileWhatsAppBarProps = {
 };
 
 export const MobileWhatsAppBar = ({
-  phone = CONTACT_PHONE,
+  phone = DEFAULT_WA_PHONE,
   text,
   label = "Plan with Roamalto on WhatsApp",
   utm,
@@ -61,7 +60,7 @@ export const MobileWhatsAppBar = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [dismissed, scrollTrigger]);
 
-  const message = text?.trim() ? text : DEFAULT_WA_TEXT;
+  const message = text?.trim() ? text.trim() : DEFAULT_WA_TEXT;
   const mergedUtm = useMemo(() => mergeWaUtm(utm), [utm]);
   const trackedUtm = useMemo(() => {
     return {
