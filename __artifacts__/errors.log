@@ -1,0 +1,8 @@
+npm ci failed: lock file missing packages
+docker not available in environment
+psql not installed; cannot verify database
+seed script failed
+seed script failed: npm 403 fetching tsx
+npm install failed: ENOTEMPTY edge-runtime
+npm install failed: 403 fetching @fast-csv/format
+lighthouse install failed: 403
